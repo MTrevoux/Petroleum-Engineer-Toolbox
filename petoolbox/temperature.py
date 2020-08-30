@@ -45,25 +45,17 @@ class temperature(object):
     def k(self):
         return self.temptransfer('k')
     
-    def add(self,value,ref):
+    def add(self,value):
         """
         This attribute add the described temperature to the reference object.
         Input:
             value(float): temperature to be added.
-            ref(str): scale reference of the temperature added.
         Return:
             The function return the new temperature using the reference scale.
         """
-        l=['c','f','r','k']
-        if ref in l:
-            tadd=temp(value,ref)
-            transferMatrixCoeff=np.array([[1,1.8,1.8,1],[1/1.8,1,1,1/1.8],[1/1.8,1,1,1/1.8],[1,1.8,1.8,1]])
-            i=l.index(ref)
-            j=l.index(self.reference)
-            self.value=self.value+tadd.temptransfer(ref)*transferMatrixCoeff[i][j]
-            return self.value
-        else:
-            return "wrong reference, it must be in ['c','f','r','k']"
+        newValue = self.value+value
+        return newValue
+
         
     def show(self):
         return str(np.round(self.value,2))+' °'+self.reference
