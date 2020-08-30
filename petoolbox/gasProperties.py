@@ -1,21 +1,21 @@
 import numpy as np
 from scipy.optimize import root
 
-def zfactorBeggsBrill(P,T,rho):
+def zfactorBeggsBrill(P,T,SG):
 	"""
 	Calculation of z factor using explicit method
   INPUT:
     P in psia
     T in Rankine
-    rho is the gas specific gravity
+    SG is the gas specific gravity
     Sutton correlation is used to calcultate pseudocritical properties. Validity SG in [0.57,1.68].
     No CO2 nor H2S corrections
   OUTPUT
     z factor
 	"""
 
-	Ppc=756.8-131.07*rho-3.6*rho**2
-	Tpc=169.2+349.5*rho-74*rho**2
+	Ppc=756.8-131.07*SG-3.6*SG**2
+	Tpc=169.2+349.5*SG-74*SG**2
 	Tr=T/Tpc #rankine
 	Pr=P/Ppc #psia
 
@@ -31,20 +31,20 @@ def zfactorBeggsBrill(P,T,rho):
 	return z
 
 
-def zfactorDAK(P,T,rho):
+def zfactorDAK(P,T,SG):
 	"""
 	Calculation of z factor using implicit method
   INPUT:
     P in psia
     T in Rankine
     Sutton correlation is used to calcultate pseudocritical properties. Validity SG in [0.57,1.68].
-    rho is the gas specific gravity
+    SG is the gas specific gravity
     No CO2 nor H2S corrections
   OUTPUT
     [z factor, Boolean]
 	"""
-	Ppc=756.8-131.07*rho-3.6*rho**2
-	Tpc=169.2+349.5*rho-74*rho**2
+	Ppc=756.8-131.07*SG-3.6*SG**2
+	Tpc=169.2+349.5*SG-74*SG**2
 	Tr=T/Tpc #rankine
 	Pr=P/Ppc #psia
 	#Dranchuk / Abou Kassem
