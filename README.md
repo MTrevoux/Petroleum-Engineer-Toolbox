@@ -7,10 +7,10 @@ Useful tools that can be used to solve different kind of problems faced by the p
 This module define the class temperature. Easy engineer approach about how to deal with a temperature.
 Instead of always converting the values, you just need to call the unit which is an attribute.
 Example: 
-'''
+```
 t = temperature(15,'c')  #'c' standing for celsius
 t.f                      #The value is converted into Fahrenheit.
-'''
+```
 
 ## pressure.py
 
