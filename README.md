@@ -25,7 +25,7 @@ Instead of always converting the values, you just need to call the unit which is
 
 Example:
 ````
-p = pressure(14.5,'psi') # the builder consider the value in gage 'g' you can also write
+p = pressure(14.5,'psi') # the builder consider the value in gage 'g' if not specified, you can also write:
 p = pressure(14.5,'psi','g')
 
 p.psia
