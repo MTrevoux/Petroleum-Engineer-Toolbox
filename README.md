@@ -24,7 +24,7 @@ Instead of always converting the values, you just need to call the unit which is
 ['psi','bar','pa','atm','hPa','inchW','inchM'] in absolut and gage.
 
 Example:
-``
+````
 p = pressure(14.5,'psi') # the builder consider the value in gage 'g' you can also write
 p = pressure(14.5,'psi','g')
 
@@ -33,7 +33,7 @@ p.atma
 p.atmg
 p.inchWa
 p.inchWg
-``
+````
 
 ## gasProperties.py
 
