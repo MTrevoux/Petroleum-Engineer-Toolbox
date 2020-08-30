@@ -13,8 +13,8 @@ Instead of always converting the values, you just need to call the unit which is
 
 Example: 
 ```
-t = temperature(15,'c')  #'c' standing for celsius
-t.f                      #The value is converted into Fahrenheit.
+t = temperature(15,'c')  # (str) 'c' standing for celsius
+t.f                      # (float) return the value converted into Fahrenheit.
 ```
 
 ## pressure.py
