@@ -23,7 +23,11 @@ Under construction
 
 ## gasProperties.py
 
-Under construction
+Functions avaible:
+- zfactorBeggsBrill / calculation of the z factor using Beggs and Brill correlation. Explicit approach.
+- zfactorDAK / calculation of the z factor using DAK correlation. Implicit approach.
+- SGgas / calculate the specific gravity of a gas at given P and T with air reference at 60°F and 1 atm
+- rhoGas / calculate the density in lbs/tf of a gas at given P and T
 
 ## oilProperties.py
 
