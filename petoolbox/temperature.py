@@ -47,7 +47,7 @@ class temperature(object):
     
     def add(self,value,ref):
         """
-        This attribute add the describe temperature to the reference object.
+        This attribute add the described temperature to the reference object.
         Input:
             value(float): temperature to be added.
             ref(str): scale reference of the temperature added.
