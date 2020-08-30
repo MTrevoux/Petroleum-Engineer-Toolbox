@@ -19,7 +19,21 @@ t.f                      # (float) return the value converted into Fahrenheit.
 
 ## pressure.py
 
-Under construction
+This module define the class pressure. Easy engineer approach about how to deal with a pressure and different scale changes.
+Instead of always converting the values, you just need to call the unit which is an attribute. Set available:
+['psi','bar','pa','atm','hPa','inchW','inchM'] in absolut and gage.
+
+Example:
+``
+p = pressure(14.5,'psi') # the builder consider the value in gage 'g' you can also write
+p = pressure(14.5,'psi','g')
+
+p.psia
+p.atma
+p.atmg
+p.inchWa
+p.inchWg
+``
 
 ## gasProperties.py
 
