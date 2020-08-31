@@ -9,7 +9,10 @@ class pressure(object):
         inchW: temperature reference at 60°F
         inchM: temperature reference at 32°F
     """
+    
     l=['psi','bar','pa','atm','hPa','inchW','inchM']
+    convFactor=np.array([1,0.06894757,6894.757,0.06804596,68.94757,27.70759,2.036021])
+    
     def __init__(self,value,unit,reference='g'):
         if unit in pressure.l and reference in ['g','a'] :
             self.reference=reference
@@ -30,17 +33,16 @@ class pressure(object):
             (float) pressure in the new unit.
         '''
         if newUnit in pressure.l and newRef in ['a','g']:
-            transferMatrixCoeff=np.array([1,0.06894757,6894.757,0.06804596,68.94757,27.70759,2.036021])
             i=pressure.l.index(self.unit)
             j=pressure.l.index(newUnit)
-            result=self.value/transferMatrixCoeff[i]*transferMatrixCoeff[j]
+            result=self.value/pressure.convFactor[i]*pressure.convFactor[j]
             if newRef == self.reference:
                 return result
             else:
                 if newRef == 'g':
-                    return result - 14.69595*transferMatrixCoeff[j]
+                    return result - 14.69595*pressure.convFactor[j]
                 else:
-                    return result + 14.69595*transferMatrixCoeff[j]
+                    return result + 14.69595*pressure.convFactor[j]
         else:
             return "wrong unit, it must be in " + str(pressure.l)
         
