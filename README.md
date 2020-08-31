@@ -14,7 +14,7 @@ Instead of always converting the values, you just need to call the unit which is
 Example: 
 ```
 t = temperature(15,'c')  # (str) 'c' standing for celsius
-t.f                      # (float) return the value converted into Fahrenheit.
+t.f()                    # (float) return the value converted into Fahrenheit.
 ```
 
 ## pressure.py
@@ -28,11 +28,11 @@ Example:
 p = pressure(14.5,'psi') # the builder considers the value in gage 'g' if not specified, you can also write:
 p = pressure(14.5,'psi','g')
 
-p.psia
-p.atma
-p.atmg
-p.inchWa
-p.inchWg
+p.psia()
+p.atma()
+p.atmg()
+p.inchWa()
+p.inchWg()
 ````
 
 ## gasProperties.py
