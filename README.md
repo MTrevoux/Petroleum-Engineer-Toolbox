@@ -42,6 +42,7 @@ Functions avaible:
 - zfactorDAK / calculation of the z factor using DAK correlation. Implicit approach.
 - SGgas / calculate the specific gravity of a gas at given P and T with air reference at 60°F and 1 atm
 - rhoGas / calculate the density in lbs/tf of a gas at given P and T
+- volumeStd / calculate the desired volume in standard conditions: 60°F and 1 atm.
 
 ## oilProperties.py
 
