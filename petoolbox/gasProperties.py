@@ -81,3 +81,15 @@ def rhoGas(z,P,T,SG):
   """
 	return 28.967*SG*P/(z*T*10.732)
 
+def volumeStd(V,z,P,T):
+	"""
+	Function to calculate a volume into standard conditions.
+	INPUT
+		V = volume or flow rate in whatever unit
+		P = psia
+		T = F
+		zfactor
+	OUTPUT
+		volume in the same unit as V in standard condition 1 atm / 60°F.
+	"""
+	return V*P/(z*(T+459.67))*1/(14.7/(459.67+60))
