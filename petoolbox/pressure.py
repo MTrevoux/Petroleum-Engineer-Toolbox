@@ -1,5 +1,3 @@
-import numpy as np
-
 class pressure(object):
     """
     Class describing pressure as a value and a scale reference.
@@ -11,9 +9,9 @@ class pressure(object):
         inchW: temperature reference at 60°F
         inchM: temperature reference at 32°F
     """
+    l=['psi','bar','pa','atm','hPa','inchW','inchM']
     def __init__(self,value,unit,reference='g'):
-        l=['psi','bar','pa','atm','hPa','inchW','inchM']
-        if unit in l and reference in ['g','a'] :
+        if unit in pressure.l and reference in ['g','a'] :
             self.reference=reference
             self.value=value
             self.unit=unit
@@ -31,11 +29,10 @@ class pressure(object):
         OUTPUT:
             (float) pressure in the new unit.
         '''
-        l=['psi','bar','pa','atm','hPa','inchW','inchM']
-        if newUnit in l:
+        if newUnit in pressure.l and newRef in ['a','g']:
             transferMatrixCoeff=np.array([1,0.06894757,6894.757,0.06804596,68.94757,27.70759,2.036021])
-            i=l.index(self.unit)
-            j=l.index(newUnit)
+            i=pressure.l.index(self.unit)
+            j=pressure.l.index(newUnit)
             result=self.value/transferMatrixCoeff[i]*transferMatrixCoeff[j]
             if newRef == self.reference:
                 return result
@@ -45,7 +42,7 @@ class pressure(object):
                 else:
                     return result + 14.69595*transferMatrixCoeff[j]
         else:
-            return "wrong unit, it must be in " + str(l)
+            return "wrong unit, it must be in " + str(pressure.l)
         
     def psia(self):
         return self.ptransfer('psi','a')
