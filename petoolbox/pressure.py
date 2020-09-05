@@ -29,7 +29,7 @@ class Pressure(object):
             print(f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())}")
             return None
         
-    def ptransfer(self, newUnit, newRef='g'):
+    def ptransfer(self, new_unit, new_ref='g'):
         '''Function used to transfer to another pressure unit.
         
         Base reference is gage pressure.
@@ -39,15 +39,15 @@ class Pressure(object):
         OUTPUT:
             (float) pressure in the new unit.
         '''
-        if newUnit in Pressure.conv_factor_dict.keys() and newRef in ['a','g']:
-            result = self.value / Pressure.conv_factor_dict[self.unit] * Pressure.conv_factor_dict[newUnit]
-            if newRef == self.reference:
+        if new_unit in Pressure.conv_factor_dict.keys() and new_ref in ['a','g']:
+            result = self.value / Pressure.conv_factor_dict[self.unit] * Pressure.conv_factor_dict[new_unit]
+            if new_ref == self.reference:
                 return result
             else:
-                if newRef == 'g':
-                    return result - 14.69595 * Pressure.conv_factor_dict[newUnit]
+                if new_ref == 'g':
+                    return result - 14.69595 * Pressure.conv_factor_dict[new_unit]
                 else:
-                    return result + 14.69595 * Pressure.conv_factor_dict[newUnit]
+                    return result + 14.69595 * Pressure.conv_factor_dict[new_unit]
         else:
             return f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())}"
         
@@ -101,9 +101,9 @@ class Pressure(object):
         Return:
             The function return the new temperature as a float.
         """
-        newValue = self.value + value
-        return newValue
+        NewValue = self.value + value
+        return NewValue
 
         
     def show(self):
-        return f"{str(np.round(self.value,2))} {self.unit}{self.reference}"
+        return f"{str(self.value)} {self.unit}{self.reference}"
