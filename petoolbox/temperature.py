@@ -1,8 +1,8 @@
-import numpy as np
+from numpy import array
 
-class temperature(object):
-    """
-    Class describing temperature as a value and a scale reference.
+class Temperature(object):
+    """Class describing temperature as a value and a scale reference.
+    
     Features:
         Value(float): measured value
         Reference(str): The scale reference must be included in the list ['c','f','r','k']
@@ -11,27 +11,43 @@ class temperature(object):
         r : rankine
         k : kelvin
     """
+    unit_list=['c','f','r','k']
     
-    def __init__(self,value,reference):
-        if reference in ['c','f','r','k']:
-            self.reference=reference
-            self.value=value
+    transfer_matrix_coeff = array([
+                [1,1.8,1.8,1],
+                [1/1.8,1,1,1/1.8],
+                [1/1.8,1,1,1/1.8],
+                [1,1.8,1.8,1]
+    ])
+    transfer_matrix_const = array([
+                [0,0,0,0],
+                [-32,0,0,-32],
+                [-459.67-32,0,0,-459.67-32],
+                [0,-273.15,-273.15,0]
+    ])
+    transfer_matrix_const2 = array([
+                [0,32,459.67+32,273.15],
+                [0,0,459.67,273.15],
+                [0,-459.67,0,273.15],
+                [-273.15,32,32+459.67,0]
+    ])
+    
+    def __init__(self, value, reference):
+        if reference in Temperature.unit_list:
+            self.reference = reference
+            self.value = value
         else:
-            print("wrong reference, it must be in ['c','f','r','k']")
+            print(f"wrong reference, it must be in {Temperature.unit_list}")
             return None
 
-    def temptransfer(self,newRef):
-        l=['c','f','r','k']
-        if newRef in l:
-            transferMatrixCoeff=np.array([[1,1.8,1.8,1],[1/1.8,1,1,1/1.8],[1/1.8,1,1,1/1.8],[1,1.8,1.8,1]])
-            transferMatrixConst=np.array([[0,0,0,0],[-32,0,0,-32],[-459.67-32,0,0,-459.67-32],[0,-273.15,-273.15,0]])
-            transferMatrixConst2=np.array([[0,32,459.67+32,273.15],[0,0,459.67,273.15],[0,-459.67,0,273.15],[-273.15,32,32+459.67,0]])
-            i=l.index(self.reference)
-            j=l.index(newRef)
-            result=(self.value+transferMatrixConst[i])*transferMatrixCoeff[i]+transferMatrixConst2[i]
-            return result[j]
+    def temptransfer(self, new_ref):
+        if new_ref in Temperature.unit_list:
+            i = Temperature.unit_list.index(self.reference)
+            j = Temperature.unit_list.index(new_ref)
+            Result = (self.value + Temperature.transfer_matrix_const[i]) * Temperature.transfer_matrix_coeff[i] + Temperature.transfer_matrix_const2[i]
+            return Result[j]
         else:
-            return "wrong reference, it must be in ['c','f','r','k']"
+            return f"wrong reference, it must be in {Temperature.unit_list}"
 
     def c(self):
         return self.temptransfer('c')
@@ -45,17 +61,17 @@ class temperature(object):
     def k(self):
         return self.temptransfer('k')
     
-    def add(self,value):
-        """
-        This attribute add the described temperature to the reference object.
+    def add(self, value):
+        """This attribute add the described temperature to the reference object.
+        
         Input:
             value(float): temperature to be added.
         Return:
             The function return the new temperature using the reference scale.
         """
-        newValue = self.value+value
-        return newValue
+        NewValue = self.value + value
+        return NewValue
 
         
     def show(self):
-        return str(np.round(self.value,2))+' °'+self.reference
+        return f"{self.value} °{self.reference}"
