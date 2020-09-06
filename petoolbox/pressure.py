@@ -26,7 +26,7 @@ class Pressure(object):
             self.value = value
             self.unit = unit
         else:
-            print(f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())}")
+            print(f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())} and reference must be in ['a', 'g']")
             return None
         
     def ptransfer(self, new_unit, new_ref='g'):
@@ -49,7 +49,7 @@ class Pressure(object):
                 else:
                     return result + 14.69595 * Pressure.conv_factor_dict[new_unit]
         else:
-            return f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())}"
+            return f"wrong unit, it must be in {str(Pressure.conv_factor_dict.keys())} and reference must be in ['a', 'g']"
         
     def psia(self):
         return self.ptransfer('psi', 'a')
