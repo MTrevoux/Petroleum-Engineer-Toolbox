@@ -10,6 +10,9 @@ def abacus(func, parameter_range,x_plot_range, y_plot_range, \
     from numpy import mod
     
     '''
+    The purpose of this function is to create an abacus plot.
+    Useful for quick analysis.
+    
     func: function is under the form f(x,p,p2) /
     p: first parameter of the function
     p2: second parameter and is optional
