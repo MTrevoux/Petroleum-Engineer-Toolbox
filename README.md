@@ -44,6 +44,6 @@ Functions avaible:
 - rhoGas / calculate the density in lbs/tf of a gas at given P and T.
 - volumeStd / calculate the desired volume in standard conditions: 60°F and 1 atm.
 
-## oilProperties.py
+## abacus.py
 
-Under construction
+Function that produces abacus of a function that has 1 or 2 parameters.
