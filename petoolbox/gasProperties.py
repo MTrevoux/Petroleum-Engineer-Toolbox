@@ -1,16 +1,16 @@
-import numpy as np
+from numpy import log10,exp
 from scipy.optimize import root
 
 def zfactorBeggsBrill(P,T,SG):
 	"""
 	Calculation of z factor using explicit method
-  INPUT:
+    INPUT:
     P in psia
     T in Rankine
     SG is the gas specific gravity
     Sutton correlation is used to calcultate pseudocritical properties. Validity SG in [0.57,1.68].
     No CO2 nor H2S corrections
-  OUTPUT
+    OUTPUT:
     z factor
 	"""
 
@@ -34,13 +34,13 @@ def zfactorBeggsBrill(P,T,SG):
 def zfactorDAK(P,T,SG):
 	"""
 	Calculation of z factor using implicit method
-  INPUT:
+    INPUT:
     P in psia
     T in Rankine
     Sutton correlation is used to calcultate pseudocritical properties. Validity SG in [0.57,1.68].
     SG is the gas specific gravity
     No CO2 nor H2S corrections
-  OUTPUT
+    OUTPUT
     [z factor, Boolean]
 	"""
 	Ppc=756.8-131.07*SG-3.6*SG**2
@@ -53,33 +53,33 @@ def zfactorDAK(P,T,SG):
 		C=[0,0.3265,-1.07,-0.5339,0.01569,-0.05165,0.5475,-0.7361,0.1844,0.1056,0.6134,0.7210]
 		return -z+1+(C[1]+C[2]/Tr+C[3]/Tr**3+C[4]/Tr**4+C[5]/Tr**5)*rhor+(C[6]+C[7]/Tr+C[8]/Tr**2)*rhor**2-C[9]*(C[7]/Tr+C[8]/Tr**2)*rhor**5+C[10]*(1+C[11]*rhor**2)*(rhor**2/Tr**3*exp(-C[11]*rhor**2))
 	
-	X=scipy.optimize.root(katzfunc,1)
+	X=root(katzfunc,1)
 	results= [X.x[0],X.success]
 
 	return results
 
 
 def SGgas(z,P,T,SG):
-	"""
-  INPUT
-    P = psia / T = Rankine
+    """
+    INPUT
+    P = psia / T = f°
     z factor
     SG: gas specific gravity
-  OUTPUT
+    OUTPUT
     Gas specific gravity at P and T
-  """
-	return 28.967*SG*P/(z*T*10.732)/(28.967*14.7/(TempR(60)*10.732))
+    """
+    return 28.967*SG*P/(z*(T+459.67)*10.732)/(28.967*14.7/((459.67+60)*10.732))
 
 def rhoGas(z,P,T,SG):
 	"""
-  INPUT
-    P = psia / T = Rankine
+    INPUT
+    P = psia / T = f°
     z factor
     SG: gas specific gravity
-  OUTPUT
+    OUTPUT
     Gas gravity in lbs/ft3 at P and T
-  """
-	return 28.967*SG*P/(z*T*10.732)
+    """
+	return 28.967*SG*P/(z*(T+459.67)*10.732)
 
 def volumeStd(V,z,P,T):
 	"""
@@ -93,3 +93,12 @@ def volumeStd(V,z,P,T):
 		volume in the same unit as V in standard condition 1 atm / 60°F.
 	"""
 	return V*P/(z*(T+459.67))*1/(14.7/(459.67+60))
+
+def fluidPressure(rho,h):
+    """
+    rho = lbs per ft3 and h = feet
+    RETURN
+    Pressure at the bottom of fluid column
+    """
+    return rho*h/144
+
